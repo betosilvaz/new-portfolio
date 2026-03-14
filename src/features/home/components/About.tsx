@@ -3,9 +3,9 @@ import { motion, type Variants } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 
 export default function About() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
-  const appleBezier = [0.32, 0.72, 0, 1];
+  const appleBezier = [0.32, 0.72, 0, 1] as const;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },

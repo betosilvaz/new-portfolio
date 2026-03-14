@@ -1,8 +1,10 @@
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import useTheme from "@/hooks/useTheme";
 import { useTranslation } from "react-i18next";
+import { useState, type ReactNode } from "react";
+import { CheckCheck, OctagonX } from "lucide-react";
 
-const appleBezier = [0.32, 0.72, 0, 1];
+const appleBezier = [0.32, 0.72, 0, 1] as const;
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -21,8 +23,50 @@ const itemVariants: Variants = {
   }
 };
 
+interface Form {
+  name: string;
+  email: string;
+}
+
 export default function Contact() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [form, setForm] = useState<Form>({name: "", email: ""});
+  const [mailSent, setMailSent] = useState<Boolean>(false);
+  const [error, setError] = useState<Boolean>(false);
+
+  const handleChange = (e: any): void => {
+    setForm(p => ({
+      ...p, 
+      [e.target.name]: [e.target.value]
+    }));
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(form)
+    }
+    try {
+      const response = await fetch("https://send-email-worker.gilbertozn527.workers.dev", options);
+      if(!response.ok) {
+        throw new Error("Ocorreu um erro na comunicação com o servidor! Tente novamente.");
+      }
+      const data = await response.json();
+      if (data.success) {
+        console.log(data.message);
+        setError(false);
+        setMailSent(true);
+      } else {
+        throw new Error(data.error);
+      }
+    } catch(error) {
+      setMailSent(false);
+      setError(true);
+      console.log(error);
+    }
+  }
 
   return (
     <motion.section 
@@ -47,11 +91,11 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Formulário Estilo Clean */}
           <motion.div variants={itemVariants} className="lg:col-span-7 bg-white dark:bg-[#121212] rounded-[40px] p-8 md:p-12 border border-black/5 dark:border-white/5 shadow-sm">
-            <form className="flex flex-col gap-10">
+            <form className="flex flex-col gap-10" onSubmit={handleSubmit}>
               <div className="group flex flex-col gap-2 border-b border-black/10 dark:border-white/10 pb-4 focus-within:border-blue-500 transition-colors">
                 <label className="text-xs font-bold uppercase tracking-widest opacity-40">{t("contact.form.name.label")}</label>
                 <input 
-                  type="text" 
+                  type="text" name="name" onChange={handleChange}
                   placeholder={t("contact.form.name.placeholder")} 
                   className="bg-transparent text-xl outline-none placeholder:opacity-20"
                 />
@@ -60,19 +104,46 @@ export default function Contact() {
               <div className="group flex flex-col gap-2 border-b border-black/10 dark:border-white/10 pb-4 focus-within:border-blue-500 transition-colors">
                 <label className="text-xs font-bold uppercase tracking-widest opacity-40">{t("contact.form.email.label")}</label>
                 <input 
-                  type="email" 
+                  type="email" name="email" onChange={handleChange}
                   placeholder={t("contact.form.email.placeholder")} 
                   className="bg-transparent text-xl outline-none placeholder:opacity-20"
                 />
               </div>
 
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-4 py-4 px-8 bg-blue-600 text-white rounded-full font-semibold text-lg self-start transition-all hover:bg-blue-500 shadow-lg shadow-blue-500/20"
-              >
-                {t("contact.form.button")}
-              </motion.button>
+              <div className="flex flex-col gap-6 justify-between items-center">
+                <motion.button 
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="py-4 px-8 w-full md: w-fit bg-blue-600 text-white rounded-full font-semibold text-lg self-start transition-all hover:bg-blue-500 shadow-lg shadow-blue-500/20"
+                >
+                  {t("contact.form.button")}
+                </motion.button>
+                <AnimatePresence>
+                  {mailSent && (
+                    <motion.span 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-green-700 flex gap-2"
+                    >
+                        <CheckCheck className="text-green-700"/> E-mail enviado!
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+                <AnimatePresence>
+                  {error && (
+                    <motion.span 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-red-700 flex gap-2"
+                    >
+                        <OctagonX className="text-red-700"/> Ocorreu um erro. Tente novamente!
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
             </form>
           </motion.div>
 
@@ -97,7 +168,14 @@ export default function Contact() {
   );
 }
 
-function SocialCard({ href, icon, label, username }) {
+interface SocialCardProps {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  username: string;
+}
+
+function SocialCard({ href, icon, label, username }: SocialCardProps) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
       <motion.div
@@ -124,7 +202,13 @@ function SocialCard({ href, icon, label, username }) {
 
 // ... Mantém suas funções Github e Linkedin SVG aqui abaixo
 
-function Github({ size = 30, color, ...props }) {
+interface GithubProps {
+  size?: number;
+  color?: string;
+  className?: string
+}
+
+function Github({ size = 30, color, ...props }: GithubProps) {
   const { theme } = useTheme();
   const cor = color ?? (theme === "dark" ? "white" : "#050505");
 
@@ -136,7 +220,13 @@ function Github({ size = 30, color, ...props }) {
   )
 }
 
-function Linkedin({ size = 30, color, ...props }) {
+interface LinkedinProps {
+  size?: number;
+  color?: string;
+  className?: string
+}
+
+function Linkedin({ size = 30, color, ...props }: LinkedinProps) {
   const { theme } = useTheme();
   const cor = color ?? (theme === "dark" ? "white" : "#050505");
 

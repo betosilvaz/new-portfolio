@@ -35,7 +35,7 @@ const cardVariants: Variants = {
 };
 
 export default function Skills() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const skills = [
     { title: "Front-end", icon: <Code2 />, tech: ["HTML", "CSS", "Javascript", "Tailwind", "React"] },

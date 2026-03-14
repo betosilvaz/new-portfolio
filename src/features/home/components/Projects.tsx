@@ -3,7 +3,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import { useTranslation } from "react-i18next";
 
 export default function Projects() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <motion.section 

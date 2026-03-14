@@ -2,10 +2,9 @@ import photo from '@/assets/photo.jpeg';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 export default function Hero() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const phrases = [
     t("hero.phrases.first"),
@@ -16,7 +15,7 @@ export default function Hero() {
     2000,
   ];
 
-  const appleBezier = [0.32, 0.72, 0, 1];
+  const appleBezier = [0.32, 0.72, 0, 1] as const;
 
   return (
     <motion.section 

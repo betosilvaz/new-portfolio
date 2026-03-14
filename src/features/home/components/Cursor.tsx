@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useEffect, useState, useRef, createContext, useContext, type ReactNode } from "react";
+import { useEffect, useState, createContext, useContext, type ReactNode } from "react";
 
 type Variant = "default" | "clicking" | "hidden";
 
