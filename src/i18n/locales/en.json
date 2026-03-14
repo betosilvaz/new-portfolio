@@ -1,0 +1,54 @@
+{
+    "header": {
+        "menu": {
+            "home": "Home",
+            "about": "About",
+            "skills": "Skills",
+            "projects": "Projects",
+            "contact": "Contact"
+        }
+    },
+    "hero": {
+        "aka": "Software Developer",
+        "phrases": {
+            "first": "Fullstack Developer",
+            "second": "Architecting Solutions",
+            "third": "Welcome to My Portfolio!"
+        }
+    },
+    "about": {
+        "subtitle": "The Story",
+        "title1": "Developer by code.",
+        "title2": "Creator by determination.",
+        "text1": "I believe technology is a powerful tool to impact the world in any field. I work to create efficient solutions for the problems people face.",
+        "text2": "Currently, I focus on building Fullstack web systems, while always seeking to explore new technologies, fields, and possibilities.",
+        "link": "Get in touch ↗"
+    },
+    "skills": {
+        "subtitle": "Specialties",
+        "title": "My Arsenal",
+        "cards": {
+            "tools": "Tools"
+        }
+    },
+    "projects": {
+        "subtitle": "Portfolio",
+        "title": "Selected Projects"
+    },
+    "contact": {
+        "subtitle": "Contact",
+        "title1": "Let's create something ",
+        "title2": "extraordinary together.",
+        "form": {
+            "name": {
+                "label": "Name",
+                "placeholder": "What should I call you?"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "you@email.com"
+            },
+            "button": "Send message"
+        }
+    }
+}

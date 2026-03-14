@@ -1,0 +1,54 @@
+{   
+    "header": {
+        "menu": {
+            "home": "Inicio",
+            "about": "Sobre",
+            "skills": "Tecnologias",
+            "projects": "Projetos",
+            "contact": "Contato"
+        }
+    },
+    "hero": {
+        "aka": "Desenvolvedor de Software",
+        "phrases": {
+            "first": "Desenvolvedor Fullstack",
+            "second": "Arquitetando Soluções",
+            "third": "Bem-Vindo ao Meu Portfólio!"
+        }
+    },
+    "about": {
+        "subtitle": "A História",
+        "title1": "Desenvolvedor por código.",
+        "title2": "Criador por obstinação.",
+        "text1": "Acredito que a tecnologia é uma ferramenta poderosa para impactar o mundo em qualquer que seja o campo. Tabalho para criar soluções eficientes para problemas que as pessoas possuem.",
+        "text2": "Atualmente, foco em construir sistemas web de maneira Fullstack, mas sempre buscando explorar novas tecnologias, áreas e possibilidades.",
+        "link": "Entre em contato ↗"
+    },
+    "skills": {
+        "subtitle": "Especialidades",
+        "title": "Meu arsenal",
+        "cards": {
+            "tools": "Ferramentas"
+        }
+    },
+    "projects": {
+        "subtitle": "Portfólio",
+        "title": "Projetos selecionados"
+    },
+    "contact": {
+        "subtitle": "Contato",
+        "title1": "Vamos criar algo ",
+        "title2": "extraordinário juntos.",
+        "form": {
+            "name": {
+                "label": "Nome",
+                "placeholder": "Como posso te chamar?"
+            },
+            "email": {
+                "label": "E-mail",
+                "placeholder": "seu@email.com"
+            },
+            "button": "Enviar mensagem"
+        }
+    }
+}

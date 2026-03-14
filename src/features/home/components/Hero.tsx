@@ -1,14 +1,18 @@
 import photo from '@/assets/photo.jpeg';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 export default function Hero() {
+  const { t, i18n } = useTranslation();
+
   const phrases = [
-    "Desenvolvedor Fullstack",
+    t("hero.phrases.first"),
     2000,
-    "Arquitetando Soluções",
+    t("hero.phrases.second"),
     2000,
-    "Bem-Vindo ao Meu Portfólio!",
+    t("hero.phrases.third"),
     2000,
   ];
 
@@ -55,7 +59,7 @@ export default function Hero() {
           className="text-center"
         >
           <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-blue-600 dark:text-blue-400 mb-4 block">
-            Desenvolvedor de Software
+            {t("hero.aka")}
           </span>
           
           <h1 className="text-6xl md:text-8xl font-extrabold dark:text-white tracking-tighter leading-[1.1] mb-6">

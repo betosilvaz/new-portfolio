@@ -1,20 +1,32 @@
 import { motion, type Variants } from "framer-motion";
 import { Code2, Server, Terminal } from "lucide-react"; // Simulação de ícones premium
+import { useTranslation } from "react-i18next";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 }
+    transition: { 
+      staggerChildren: 0.3,
+      delayChildren: 0.2,
+    }
   }
 };
 
 const cardVariants: Variants = {
-  hidden: { y: 50, opacity: 0 },
+  hidden: { 
+    y: 50, 
+    opacity: 0
+  },
   visible: { 
     y: 0, 
     opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
+    transition: { 
+      type: "spring", 
+      stiffness: 100,
+      damping: 15,
+      duration: 0.8
+    }
   },
   hover: { 
     y: -8, 
@@ -23,28 +35,29 @@ const cardVariants: Variants = {
 };
 
 export default function Skills() {
+  const { t, i18n } = useTranslation();
+
   const skills = [
     { title: "Front-end", icon: <Code2 />, tech: ["HTML", "CSS", "Javascript", "Tailwind", "React"] },
-    { title: "Back-end", icon: <Server />, tech: ["Java", "Spring Boot", "Node.js", "PostgreSQL"] },
-    { title: "Ferramentas", icon: <Terminal />, tech: ["Docker", "Git", "GitHub", "Linux"] },
+    { title: "Back-end", icon: <Server />, tech: ["Java", "Spring Boot", "Node.js", "Typescript", "PostgreSQL"] },
+    { title: t("skills.cards.tools"), icon: <Terminal />, tech: ["Docker", "Git", "GitHub", "Linux"] },
   ];
 
   return (
-    <motion.section 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={containerVariants}
-      className="py-24 px-6 md:px-12 dark:bg-[#050505] bg-white dark:text-white"
-      id="stack"
-    >
-      <div className="max-w-6xl mx-auto">
+    <section className="py-24 dark:bg-[#050505] bg-white dark:text-white overflow-hidden w-full" id="stack">
+      <div className="max-w-6xl mx-auto px-6">
         <header className="mb-16">
-          <h2 className="text-sm font-medium tracking-[0.2em] uppercase opacity-50 mb-4">Especialidades</h2>
-          <h3 className="text-4xl md:text-5xl font-semibold tracking-tight">Meu arsenal</h3>
+          <h2 className="text-sm font-medium tracking-[0.2em] uppercase opacity-50 mb-4">{t("skills.subtitle")}</h2>
+          <h3 className="text-4xl md:text-5xl font-semibold tracking-tight">{t("skills.title")}</h3>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
           {skills.map((skill, index) => (
             <motion.div
               key={index}
@@ -70,8 +83,8 @@ export default function Skills() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
